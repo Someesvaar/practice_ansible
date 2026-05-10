@@ -1,12 +1,24 @@
 - name: Deploy to Tomcat
   hosts: web
   become: yes
+
   tasks:
-    - name: Copy WAR file to Tomcat
-      copy:
-        src: "/var/snap/jenkins/5022/workspace/practice_ansible/target/AnsibleApp.war"
-        dest: "/opt/tomcat/webapps/AnsibleApp.war"
-        remote_src: no
+    - name: Verify WAR exists
+      shell: ls -l /var/snap/jenkins/5022/workspace/practice_ansible/target/
+      register: warcheck
+
+    - debug:
+        var: warcheck.stdout_lines
+
+    - name: Copy WAR file
+      shell: cp /var/snap/jenkins/5022/workspace/practice_ansible/target/AnsibleApp.war /opt/tomcat/webapps/
+
+    - name: Verify deployment
+      shell: ls -l /opt/tomcat/webapps/
+      register: deploycheck
+
+    - debug:
+        var: deploycheck.stdout_lines
 
     - name: Restart Tomcat
       shell: |
