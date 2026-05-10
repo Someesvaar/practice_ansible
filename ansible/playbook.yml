@@ -1,13 +1,15 @@
- - name: Deploy to Tomcat
-   hosts: web
-   become: yes
-   tasks:
-   	- name: Copy file from source to destination
-   	  copy:
-   	  	src: "/var/snap/jenkins/5022/workspace/practice_ansible/target/AnsibleApp.war"
-   	  	dest: "/opt/tomcat/webapps/AnsibleApp.war"
-   	- name: Restart tomcat
-   	  shell: | 
-   	  	/opt/tomcat/bin/shutdown.sh || true
-   	  	sleep 5
-   	  	/opt/tomcat/bin/startup.sh
+- name: Deploy to Tomcat
+  hosts: web
+  become: yes
+
+  tasks:
+    - name: Copy file from source to destination
+      copy:
+        src: "/var/snap/jenkins/5022/workspace/practice_ansible/target/AnsibleApp.war"
+        dest: "/opt/tomcat/webapps/AnsibleApp.war"
+
+    - name: Restart tomcat
+      shell: |
+        /opt/tomcat/bin/shutdown.sh || true
+        sleep 5
+        /opt/tomcat/bin/startup.sh
