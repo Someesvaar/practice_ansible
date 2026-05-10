@@ -2,18 +2,22 @@ pipeline{
 	agent any
 	
 	enviroinment{
-	LANG 'en_US.UTF-8'
-	LC_ALL "en_US.UTF-8"
+	LANG = 'en_US.UTF-8'
+	LC_ALL = "en_US.UTF-8"
+	}
+
+	tools{
+		maven 'Maven'
 	}
 	
 	stages{
 		stage('Checkout'){
 			steps{
-				git branch : 'master', url : 'https://github.com/Someesvaar/practice_ansible.git'
+				git branch : 'main', url : 'https://github.com/Someesvaar/practice_ansible.git'
 			}
 		}
 		
-		stage('Package'){
+		stage('Buid'){
 			steps{
 				sh 'mvn clean package'
 			}
@@ -21,7 +25,7 @@ pipeline{
 		
 		stage('archive'){
 			steps{
-				archiveArtifacts artifacts: 'target/*.war', fingerprint=true
+				archiveArtifacts artifacts: 'target/*.war', fingerprint:true
 			}
 		}
 		
