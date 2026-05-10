@@ -7,6 +7,7 @@
       copy:
         src: "/var/snap/jenkins/5022/workspace/practice_ansible/target/AnsibleApp.war"
         dest: "/opt/tomcat/webapps/AnsibleApp.war"
+        remote_src: no
 
     - name: Restart tomcat
       shell: |
