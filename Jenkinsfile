@@ -13,7 +13,7 @@ pipeline{
 	stages{
 		stage('Checkout'){
 			steps{
-				git branch : 'main', url : 'https://github.com/Someesvaar/practice_ansible.git'
+				git branch : 'main', url : 'https://github.com/Someesvaar/test.git'
 			}
 		}
 		
